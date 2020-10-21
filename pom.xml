@@ -13,6 +13,7 @@
         <module>mono-operators</module>
         <module>flux-operators</module>
         <module>tools</module>
+        <module>parallel-flux</module>
     </modules>
 
     <packaging>pom</packaging>
