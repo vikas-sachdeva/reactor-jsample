@@ -6,12 +6,6 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.ParallelFlux;
 import reactor.core.scheduler.Schedulers;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-
 public class ParallelFluxTest {
 
     @Test
@@ -114,28 +108,11 @@ public class ParallelFluxTest {
         Thread.sleep(1000 * 200);
     }
 
-    private void doSomethingBlocking1() {
+    private void doSomethingBlocking() {
         try {
             Thread.sleep(1000 * 2);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void doSomethingBlocking() {
-        try {
-            URL yahoo = new URL("http://slowwly.robertomurray.co.uk/delay/10000/url/http://www.google.co.uk");
-            URLConnection yahooConnection = yahoo.openConnection();
-            DataInputStream dis = new DataInputStream(yahooConnection.getInputStream());
-            String inputLine;
-            while ((inputLine = dis.readLine()) != null) {
-                //System.out.println(inputLine);
-            }
-            dis.close();
-        } catch (MalformedURLException me) {
-            System.out.println("MalformedURLException: " + me);
-        } catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
         }
     }
 }
