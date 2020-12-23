@@ -3,6 +3,8 @@ package reactor.jsample;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 
+import java.util.Arrays;
+
 public class FluxTest {
 
     @Test
@@ -119,5 +121,22 @@ public class FluxTest {
                 .doOnNext(n -> System.out.println("Next callback - will execute " + n))
                 .doOnTerminate(() -> System.out.println("Terminate callback - will execute"))
                 .subscribe();
+    }
+
+    @Test
+    void testCollectList() {
+        Flux.fromIterable(Arrays.asList("A", "B", "C")).map(this::method1)
+                .log()
+                .collectList()
+                .doOnSubscribe(s -> System.out.println("Subscribe callback - will execute " + s))
+                .doOnRequest(r -> System.out.println("Request callback - will execute " + r))
+                .doOnNext(n -> System.out.println("Next callback - will execute " + n))
+                .doOnTerminate(() -> System.out.println("Terminate callback - will execute"))
+                .doOnSuccess(l -> System.out.println("Success callback - will execute"))
+                .subscribe();
+    }
+
+    private String method1(String str) {
+        return str.toLowerCase();
     }
 }
